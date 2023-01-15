@@ -26,7 +26,7 @@ public class HitServiceImpl implements HitService {
     }
 
     @Override
-    public List<ViewStats> getStats(String start, String end) throws UnsupportedEncodingException {
+    public List<ViewStats> getStats(String start, String end) {
         LocalDateTime startDateTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endDateTime = LocalDateTime.parse(end, formatter);
         return hitRepository.getStats(startDateTime, endDateTime);
