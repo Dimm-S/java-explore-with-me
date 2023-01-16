@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public CategoryDto getCategory(Integer id) {
-        return categoryMapper.mapCategoryToDto(categoryReposirory.findById(id).get());
+        return categoryMapper.mapCategoryToDto(categoryReposirory.findById(id.longValue()).get());
     }
 
     @Override
@@ -42,6 +42,9 @@ public class CategoryServiceImpl implements CategoryService{
         //todo имя должно быть уникальным
         if (categoryDto.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Некорректное тело запроса");
+        }
+        if (categoryReposirory.existsCategoryByName(categoryDto.getName())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Имя уже существует");
         }
         Category category = categoryReposirory.getReferenceById(categoryDto.getId());
         category.setName(categoryDto.getName());
@@ -54,14 +57,18 @@ public class CategoryServiceImpl implements CategoryService{
         if (categoryDto.getName() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Некорректное тело запроса");
         }
-        return categoryMapper.mapCategoryToDto(
-                categoryReposirory.save(
-                        categoryMapper.mapNewToCategory(categoryDto)));
+        if (categoryReposirory.existsCategoryByName(categoryDto.getName())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Имя уже существует");
+        }
+        Category category = categoryMapper.mapNewToCategory(categoryDto);
+        categoryReposirory.save(category);
+        return categoryMapper.mapCategoryToDto(category);
+
     }
 
     @Override
     public void deleteCategory(Integer catId) {
-        categoryReposirory.deleteById(catId); //todo не должно быть связанных событий
+        categoryReposirory.deleteById(catId.longValue()); //todo не должно быть связанных событий
     }
 }
 

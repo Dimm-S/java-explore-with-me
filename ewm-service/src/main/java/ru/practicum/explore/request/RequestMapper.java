@@ -20,11 +20,11 @@ public class RequestMapper {
         );
     }
 
-    public Request mapDtoToNewRequest(ParticipationRequestDto requestDto, Integer userId) {
+    public Request mapDtoToNewRequest(Integer userId, Integer eventId) {
         return new Request(
                 null,
                 LocalDateTime.now(),
-                requestDto.getEvent(),
+                eventId,
                 userId,
                 "PENDING"
         );

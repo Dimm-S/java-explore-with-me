@@ -14,7 +14,7 @@ public interface RequestService {
 
     List<ParticipationRequestDto> getRequestsByUserId(Integer userId);
 
-    ParticipationRequestDto saveRequest(Integer userId, ParticipationRequestDto requestDto);
+    ParticipationRequestDto saveRequest(Integer userId, Integer eventId);
 
     ParticipationRequestDto cancelRequest(Integer userId, Integer requestId);
 }

@@ -38,9 +38,9 @@ public class RequestServiceImpl implements RequestService{
     }
 
     @Override
-    public ParticipationRequestDto saveRequest(Integer userId, ParticipationRequestDto requestDto) {
+    public ParticipationRequestDto saveRequest(Integer userId, Integer eventId) {
         //todo проверки
-        Request newRequest = requestMapper.mapDtoToNewRequest(requestDto, userId);
+        Request newRequest = requestMapper.mapDtoToNewRequest(userId, eventId);
         requestRepository.save(newRequest);
         return requestMapper.mapToDto(newRequest);
     }

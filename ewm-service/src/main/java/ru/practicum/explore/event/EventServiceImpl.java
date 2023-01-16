@@ -6,7 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import ru.practicum.explore.category.CategoryReposirory;
 import ru.practicum.explore.category.model.Category;
 import ru.practicum.explore.event.dto.EventFullDto;
@@ -130,7 +132,7 @@ public class EventServiceImpl implements EventService {
         String stringId = "/" + id;
         saveHit(ip, stringId);
         Event event = eventRepository.findById(id).get();
-        Category category = categoryReposirory.getReferenceById(event.getCategory());
+        Category category = categoryReposirory.getReferenceById(event.getCategory().longValue());
         User user = userRepository.getReferenceById(event.getInitiator());
         return eventMapper.mapToFullDto(event, category, user);
     }
@@ -187,7 +189,7 @@ public class EventServiceImpl implements EventService {
         event.setAnnotation(updatedEvent.getAnnotation());
         event.setCategory(updatedEvent.getCategory());
         event.setDescription(updatedEvent.getDescription());
-        event.setEventDate(updatedEvent.getEventDate());
+        event.setEventDate(parseLocalDateTime(updatedEvent.getEventDate(), formatter));
         event.setLocationLat(updatedEvent.getLocation().getLat());
         event.setLocationLon(updatedEvent.getLocation().getLon());
         event.setPaid(updatedEvent.getPaid());
@@ -278,6 +280,14 @@ public class EventServiceImpl implements EventService {
         event.setState("CANCELLED");
         eventRepository.save(event);
         return eventMapper.mapToFullDto(event);
+    }
+
+    @Override
+    public void checkEventsExist(List<Integer> eventIds) {
+        List<Integer> events = eventRepository.getAllIds();
+        if (!events.containsAll(eventIds)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event dosn't exist");
+        }
     }
 
     private static void saveHit(String ip, String id) {

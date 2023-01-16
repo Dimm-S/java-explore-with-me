@@ -16,4 +16,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
                     "FROM users " +
                     "WHERE id in (:ids)")
     List<User> getUsersListByIdList(List<Integer> ids, Pageable pageable);
+
+    Boolean existsUserByName(String name);
 }

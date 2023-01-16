@@ -46,6 +46,9 @@ public class UserServiceImpl implements UserService{
         if (newUserDto.getName() == null || newUserDto.getEmail() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Некорректное тело запроса");
         }
+        if (userRepository.existsUserByName(newUserDto.getName())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Имя уже существует");
+        }
         return userMapper.mapToUserDto(
                 userRepository.save(
                         userMapper.mapToUser(newUserDto)));

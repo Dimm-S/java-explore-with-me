@@ -30,13 +30,13 @@ create table IF NOT EXISTS events
     id  serial not null
         constraint pk_event
             primary key,
-    annotation         varchar(200),
+    annotation         varchar(500),
     category           integer                                              not null
         constraint category_fk
             references category,
     confirmed_requests integer                                              not null,
     created_on         timestamp with time zone                             not null,
-    description        varchar(500),
+    description        varchar(1000),
     event_date         timestamp with time zone                             not null,
     initiator          integer                                              not null
         constraint user_fk
@@ -45,7 +45,7 @@ create table IF NOT EXISTS events
     location_lon       double precision,
     paid               boolean                                              not null,
     participant_limit  integer default 0                                    not null,
-    published_on       timestamp with time zone                             not null,
+    published_on       timestamp with time zone,
     request_moderation boolean default true                                 not null,
     state              varchar(20)                                          not null,
     title              varchar(100)                                         not null,

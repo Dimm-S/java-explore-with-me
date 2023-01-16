@@ -15,4 +15,9 @@ public interface EventRepository extends JpaRepository<Event, Long>,
                     "FROM events " +
                     "WHERE id in ?")
     List<Event> getEventsListByIdList(List<Integer> idList);
+
+    @Query(nativeQuery = true,
+            value = "SELECT id " +
+                    "FROM events")
+    List<Integer> getAllIds();
 }

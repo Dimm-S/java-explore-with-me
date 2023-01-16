@@ -11,13 +11,18 @@ import ru.practicum.explore.event.model.Event;
 import ru.practicum.explore.user.UserService;
 import ru.practicum.explore.user.model.User;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
 public class EventMapper {
     private final CategoryService categoryService;
     private final UserService userService;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSS]");
+    private final DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 
     public EventFullDto mapToFullDto(Event event, Category category, User user) {
         return new EventFullDto(
@@ -26,7 +31,7 @@ public class EventMapper {
                 event.getConfirmedRequests(),
                 event.getCreatedOn(),
                 event.getDescription(),
-                event.getEventDate(),
+                event.getEventDate().format(outFormatter),
                 event.getId(),
                 new EventFullDto.UserShortDto(user.getId(), user.getName()),
                 new EventFullDto.Location(event.getLocationLat(), event.getLocationLon()),
@@ -49,7 +54,7 @@ public class EventMapper {
                 event.getConfirmedRequests(),
                 event.getCreatedOn(),
                 event.getDescription(),
-                event.getEventDate(),
+                event.getEventDate().format(outFormatter),
                 event.getId(),
                 new EventFullDto.UserShortDto(
                         userService.getUser(event.getInitiator()).getId(),
@@ -97,7 +102,7 @@ public class EventMapper {
                 0,
                 LocalDateTime.now(),
                 newEventDto.getDescription(),
-                newEventDto.getEventDate(),
+                parseLocalDateTime(newEventDto.getEventDate(), formatter),
                 userId,
                 newEventDto.getLocation().getLat(),
                 newEventDto.getLocation().getLon(),
@@ -109,5 +114,12 @@ public class EventMapper {
                 newEventDto.getTitle(),
                 0L
         );
+    }
+
+    private static LocalDateTime parseLocalDateTime(CharSequence text, DateTimeFormatter formatter) {
+        if (text == null) {
+            return null;
+        }
+        return formatter.parse(text, LocalDateTime::from);
     }
 }

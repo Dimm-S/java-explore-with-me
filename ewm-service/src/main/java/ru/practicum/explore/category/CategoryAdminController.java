@@ -24,7 +24,6 @@ public class CategoryAdminController {
         return categoryService.patchCategory(categoryDto);
     }
 
-    @Transactional
     @PostMapping
     public CategoryDto saveCategory(
             @Validated({Create.class}) @RequestBody NewCategoryDto categoryDto) {

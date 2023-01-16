@@ -25,10 +25,11 @@ public class RequestController {
     @PostMapping
     public ParticipationRequestDto saveRequest(
             @PathVariable Integer userId,
-            @RequestBody ParticipationRequestDto requestDto
+            @RequestParam Integer eventId
+//            @RequestBody ParticipationRequestDto requestDto
     ) {
         log.info("Request endpoint: 'GET /users/{}/requests' (Создание нового запроса на участие)", userId);
-        return requestService.saveRequest(userId, requestDto);
+        return requestService.saveRequest(userId, eventId);
     }
 
     @PatchMapping("/{requestId}/cancel")

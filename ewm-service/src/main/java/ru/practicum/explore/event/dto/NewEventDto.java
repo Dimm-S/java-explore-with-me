@@ -1,12 +1,16 @@
 package ru.practicum.explore.event.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.explore.utils.Create;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +22,7 @@ public class NewEventDto {
     @NotBlank(groups = {Create.class})
     private String description;
     @NotNull(groups = {Create.class})
-    private LocalDateTime eventDate; //todo добавить проверку даты
+    private String eventDate; //todo добавить проверку даты
     @NotNull(groups = {Create.class})
     private Location location;
     private Boolean paid;

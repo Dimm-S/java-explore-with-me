@@ -54,4 +54,6 @@ public interface EventService {
     EventFullDto publishEvent(Integer eventId);
 
     EventFullDto rejectEvent(Integer eventId);
+
+    void checkEventsExist(List<Integer> eventIds);
 }

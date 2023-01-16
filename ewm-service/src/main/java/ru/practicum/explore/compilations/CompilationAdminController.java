@@ -2,13 +2,16 @@ package ru.practicum.explore.compilations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explore.compilations.dto.CompilationDto;
 import ru.practicum.explore.compilations.dto.NewCompilationDto;
 import ru.practicum.explore.compilations.model.EventsCompilations;
+import ru.practicum.explore.utils.Create;
 
 @RestController
 @Slf4j
+@Validated
 @RequiredArgsConstructor
 @RequestMapping(path = "/admin/compilations")
 public class CompilationAdminController {
@@ -17,7 +20,7 @@ public class CompilationAdminController {
 
     @PostMapping
     public CompilationDto saveCompilation(
-            @RequestBody NewCompilationDto compilationDto
+            @Validated({Create.class}) @RequestBody NewCompilationDto compilationDto
             ) {
         log.info("Request endpoint: 'GET /admin/compilations' (Добавление подборки)");
         return compilationService.saveCompilation(compilationDto);

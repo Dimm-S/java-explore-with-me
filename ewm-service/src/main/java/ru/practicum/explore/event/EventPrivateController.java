@@ -2,17 +2,20 @@ package ru.practicum.explore.event;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explore.event.dto.EventFullDto;
 import ru.practicum.explore.event.dto.EventShortDto;
 import ru.practicum.explore.event.dto.NewEventDto;
 import ru.practicum.explore.event.dto.UpdateEventRequest;
 import ru.practicum.explore.request.dto.ParticipationRequestDto;
+import ru.practicum.explore.utils.Create;
 
 import java.util.List;
 
 @RestController
 @Slf4j
+@Validated
 @RequiredArgsConstructor
 @RequestMapping(path = "/users/{userId}/events")
 public class EventPrivateController {
@@ -40,7 +43,7 @@ public class EventPrivateController {
     @PostMapping
     public EventFullDto saveEvent(
             @PathVariable Integer userId,
-            @RequestBody NewEventDto newEventDto
+            @Validated({Create.class}) @RequestBody NewEventDto newEventDto
             ) {
         log.info("Request endpoint: 'GET /users/{}/events' (Создание события пользователем)", userId);
         return eventService.saveEvent(userId, newEventDto);

@@ -13,7 +13,7 @@ public class EventFullDto {
     private Integer confirmedRequests;
     private LocalDateTime createdOn;
     private String description;
-    private LocalDateTime eventDate;
+    private String eventDate;
     private Integer id;
     private UserShortDto initiator;
     private Location location;
@@ -28,7 +28,7 @@ public class EventFullDto {
     @Data
     @AllArgsConstructor
     public static class CategoryDto {
-        Integer id;
+        Long id;
         String name;
     }
 

@@ -2,10 +2,7 @@ package ru.practicum.explore.category;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.practicum.explore.category.dto.CategoryDto;
 
 import java.util.List;
@@ -26,9 +23,9 @@ public class CategoryController {
         return categoryService.getCategories(from, size);
     }
 
-    @GetMapping("/{id}")
-    public CategoryDto getCategory(@RequestParam Integer id) {
-        log.info("Request endpoint: 'GET /categories/{} (Получение категории по id)", id);
-        return categoryService.getCategory(id);
+    @GetMapping("/{catId}")
+    public CategoryDto getCategory(@PathVariable Integer catId) {
+        log.info("Request endpoint: 'GET /categories/{} (Получение категории по catId)", catId);
+        return categoryService.getCategory(catId);
     }
 }

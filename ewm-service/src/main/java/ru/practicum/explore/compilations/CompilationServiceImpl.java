@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import ru.practicum.explore.compilations.dto.CompilationDto;
 import ru.practicum.explore.compilations.dto.NewCompilationDto;
 import ru.practicum.explore.compilations.model.Compilation;
@@ -41,7 +43,10 @@ public class CompilationServiceImpl implements CompilationService {
             List<Integer> eventIds = eventsCompilations.stream()
                     .map(EventsCompilations::getEventId)
                     .collect(Collectors.toList());
-            List<EventShortDto> events = eventService.getEventsListByIdsList(eventIds);
+            List<EventShortDto> events = new ArrayList<>();
+            if (eventIds.size() != 0) {
+                events = eventService.getEventsListByIdsList(eventIds);
+            }
             CompilationDto compilationDto = compilationMapper.mapToCompilationDto(compilation, events);
             compilationDtoList.add(compilationDto);
             }
@@ -65,9 +70,11 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public CompilationDto saveCompilation(NewCompilationDto compilationDto) {
+        List<Integer> eventIds = compilationDto.getEvents();
+        eventService.checkEventsExist(eventIds);
         compilationRepository.save(compilationMapper.mapNewDtoToCompilation(compilationDto));
         Compilation compilation = compilationRepository.getCompilationByTitle(compilationDto.getTitle());
-        List<Integer> eventIds = compilationDto.getEvents();
+
         for (Integer eventId : eventIds) {
             eventsCompilationsService.saveEventCompilation(
                     new EventsCompilations(compilation.getId(), eventId)
