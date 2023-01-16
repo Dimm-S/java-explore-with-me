@@ -5,7 +5,7 @@ import ru.practicum.explore.compilations.model.EventsCompilations;
 import java.util.List;
 
 public interface EventsCompilationsService {
-    List<EventsCompilations> getCompilation(Integer compilationId);
+    List<EventsCompilations> getCompilation(Long compilationId);
     void saveEventCompilation(EventsCompilations eventsCompilations);
-    void deleteEventFromCompilation(Integer compId, Integer eventId);
+    void deleteEventFromCompilation(Long compId, Long eventId);
 }

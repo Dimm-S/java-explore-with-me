@@ -14,7 +14,7 @@ public class EventFullDto {
     private LocalDateTime createdOn;
     private String description;
     private String eventDate;
-    private Integer id;
+    private Long id;
     private UserShortDto initiator;
     private Location location;
     private Boolean paid;
@@ -35,7 +35,7 @@ public class EventFullDto {
     @Data
     @AllArgsConstructor
     public static class UserShortDto {
-        Integer id;
+        Long id;
         String name;
     }
 

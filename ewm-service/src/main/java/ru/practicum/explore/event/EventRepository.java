@@ -13,8 +13,8 @@ public interface EventRepository extends JpaRepository<Event, Long>,
     @Query(nativeQuery = true,
             value = "SELECT * " +
                     "FROM events " +
-                    "WHERE id in ?")
-    List<Event> getEventsListByIdList(List<Integer> idList);
+                    "WHERE id in (:idList)")
+    List<Event> getEventsListByIdList(List<Long> idList);
 
     @Query(nativeQuery = true,
             value = "SELECT id " +

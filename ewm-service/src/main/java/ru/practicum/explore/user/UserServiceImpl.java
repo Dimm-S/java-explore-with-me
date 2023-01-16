@@ -23,12 +23,12 @@ public class UserServiceImpl implements UserService{
     private final UserMapper userMapper;
 
     @Override
-    public UserShortDto getUser(Integer id) {
+    public UserShortDto getUser(Long id) {
         return userMapper.mapToUserShortDto(userRepository.getReferenceById(id));
     }
 
     @Override
-    public List<UserDto> getUsers(List<Integer> ids, Integer from, Integer size) {
+    public List<UserDto> getUsers(List<Long> ids, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from, size);
         Iterable<User> users;
         if (ids != null) {
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUser(Integer userId) {
+    public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
 }

@@ -40,7 +40,7 @@ public class CompilationServiceImpl implements CompilationService {
         for (Compilation compilation : compilations) {
             List<EventsCompilations> eventsCompilations =
                     eventsCompilationsService.getCompilation(compilation.getId());
-            List<Integer> eventIds = eventsCompilations.stream()
+            List<Long> eventIds = eventsCompilations.stream()
                     .map(EventsCompilations::getEventId)
                     .collect(Collectors.toList());
             List<EventShortDto> events = new ArrayList<>();
@@ -54,12 +54,12 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
-    public CompilationDto getCompilation(Integer compId) {
-        Compilation compilation = compilationRepository.getReferenceById(compId.longValue());
+    public CompilationDto getCompilation(Long compId) {
+        Compilation compilation = compilationRepository.getReferenceById(compId);
 
         List<EventsCompilations> eventsCompilations =
                 eventsCompilationsService.getCompilation(compilation.getId());
-        List<Integer> eventIds = eventsCompilations.stream()
+        List<Long> eventIds = eventsCompilations.stream()
                 .map(EventsCompilations::getEventId)
                 .collect(Collectors.toList());
         List<EventShortDto> events = eventService.getEventsListByIdsList(eventIds);
@@ -70,12 +70,12 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public CompilationDto saveCompilation(NewCompilationDto compilationDto) {
-        List<Integer> eventIds = compilationDto.getEvents();
+        List<Long> eventIds = compilationDto.getEvents();
         eventService.checkEventsExist(eventIds);
         compilationRepository.save(compilationMapper.mapNewDtoToCompilation(compilationDto));
         Compilation compilation = compilationRepository.getCompilationByTitle(compilationDto.getTitle());
 
-        for (Integer eventId : eventIds) {
+        for (Long eventId : eventIds) {
             eventsCompilationsService.saveEventCompilation(
                     new EventsCompilations(compilation.getId(), eventId)
             );
@@ -84,26 +84,26 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
-    public void deleteCompilation(Integer compId) {
-        compilationRepository.deleteById(compId.longValue());
+    public void deleteCompilation(Long compId) {
+        compilationRepository.deleteById(compId);
         //todo удалить из ev_comp ???
     }
 
     @Override
-    public void deleteEventFromCompilation(Integer compId, Integer eventId) {
+    public void deleteEventFromCompilation(Long compId, Long eventId) {
         eventsCompilationsService.deleteEventFromCompilation(compId, eventId);
     }
 
     @Override
-    public void unpinCompilation(Integer compId) {
-        Compilation compilation = compilationRepository.getReferenceById(compId.longValue());
+    public void unpinCompilation(Long compId) {
+        Compilation compilation = compilationRepository.getReferenceById(compId);
         compilation.setPinned(false);
         compilationRepository.save(compilation);
     }
 
     @Override
-    public void pinCompilation(Integer compId) {
-        Compilation compilation = compilationRepository.getReferenceById(compId.longValue());
+    public void pinCompilation(Long compId) {
+        Compilation compilation = compilationRepository.getReferenceById(compId);
         compilation.setPinned(true);
         compilationRepository.save(compilation);
     }

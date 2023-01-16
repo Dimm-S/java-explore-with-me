@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "events_compilations")
 public class EventsCompilations {
     @Id
-    private Integer compilationId;
+    private Long compilationId;
     @Id
-    private Integer eventId;
+    private Long eventId;
 }

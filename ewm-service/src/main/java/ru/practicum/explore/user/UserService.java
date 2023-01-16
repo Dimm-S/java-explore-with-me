@@ -8,8 +8,8 @@ import ru.practicum.explore.user.dto.UserShortDto;
 import java.util.List;
 
 public interface UserService {
-    UserShortDto getUser(Integer id);
-    List<UserDto> getUsers(List<Integer> ids, Integer from, Integer size);
+    UserShortDto getUser(Long id);
+    List<UserDto> getUsers(List<Long> ids, Integer from, Integer size);
     UserDto saveUser(NewUserDto newUserDto);
-    void deleteUser(Integer userId);
+    void deleteUser(Long userId);
 }

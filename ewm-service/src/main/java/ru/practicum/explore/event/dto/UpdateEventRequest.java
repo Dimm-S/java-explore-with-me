@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class UpdateEventRequest {
     private String annotation;
-    private Integer category;
+    private Long category;
     private String description;
     private LocalDateTime eventDate;
     private Integer eventId;

@@ -33,8 +33,12 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public CategoryDto getCategory(Integer id) {
-        return categoryMapper.mapCategoryToDto(categoryReposirory.findById(id.longValue()).get());
+    public CategoryDto getCategory(Long id) {
+        if (!categoryReposirory.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Нет такой категории");
+        }
+        Category category = categoryReposirory.getReferenceById(id);
+        return categoryMapper.mapCategoryToDto(category);
     }
 
     @Override
@@ -67,8 +71,8 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void deleteCategory(Integer catId) {
-        categoryReposirory.deleteById(catId.longValue()); //todo не должно быть связанных событий
+    public void deleteCategory(Long catId) {
+        categoryReposirory.deleteById(catId); //todo не должно быть связанных событий
     }
 }
 

@@ -20,7 +20,7 @@ public class RequestMapper {
         );
     }
 
-    public Request mapDtoToNewRequest(Integer userId, Integer eventId) {
+    public Request mapDtoToNewRequest(Long userId, Long eventId) {
         return new Request(
                 null,
                 LocalDateTime.now(),

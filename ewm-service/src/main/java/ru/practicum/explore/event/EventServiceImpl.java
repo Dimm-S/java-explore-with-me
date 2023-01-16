@@ -120,7 +120,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventShortDto> getEventsListByIdsList(List<Integer> idList) {
+    public List<EventShortDto> getEventsListByIdsList(List<Long> idList) {
         List<Event> eventList = eventRepository.getEventsListByIdList(idList);
         return eventList.stream()
                 .map(eventMapper::mapToShortDto)
@@ -132,9 +132,14 @@ public class EventServiceImpl implements EventService {
         String stringId = "/" + id;
         saveHit(ip, stringId);
         Event event = eventRepository.findById(id).get();
-        Category category = categoryReposirory.getReferenceById(event.getCategory().longValue());
+        Category category = categoryReposirory.getReferenceById(event.getCategory());
         User user = userRepository.getReferenceById(event.getInitiator());
         return eventMapper.mapToFullDto(event, category, user);
+    }
+
+    @Override
+    public Event getEvent(Long eventId) {
+        return eventRepository.getReferenceById(eventId);
     }
 
     @Override
@@ -150,7 +155,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventFullDto patchEventByUserId(Integer userId, UpdateEventRequest updateEventRequest) {
+    public EventFullDto patchEventByUserId(Long userId, UpdateEventRequest updateEventRequest) {
         Event event = eventRepository.getReferenceById(updateEventRequest.getEventId().longValue());
         if ((event.getState().equals("PENDING") || event.getState().equals("CANCELED"))
                 && event.getEventDate().isAfter(LocalDateTime.now())) {
@@ -184,8 +189,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventFullDto updateEvent(Integer eventId, NewEventDto updatedEvent) {
-        Event event = eventRepository.getReferenceById(eventId.longValue());
+    public EventFullDto updateEvent(Long eventId, NewEventDto updatedEvent) {
+        Event event = eventRepository.getReferenceById(eventId);
         event.setAnnotation(updatedEvent.getAnnotation());
         event.setCategory(updatedEvent.getCategory());
         event.setDescription(updatedEvent.getDescription());
@@ -201,15 +206,15 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventFullDto saveEvent(Integer userId, NewEventDto newEventDto) {
+    public EventFullDto saveEvent(Long userId, NewEventDto newEventDto) {
         Event event = eventMapper.mapNewToEvent(newEventDto, userId);
         eventRepository.save(event);
         return eventMapper.mapToFullDto(event);
     }
 
     @Override
-    public EventFullDto getEventByUserIdAndEventId(Integer userId, Integer eventId) {
-        Event event = eventRepository.getReferenceById(eventId.longValue());
+    public EventFullDto getEventByUserIdAndEventId(Long userId, Long eventId) {
+        Event event = eventRepository.getReferenceById(eventId);
         if (event.getInitiator() != userId) {
             throw new BadRequestException("User " + userId + " not initiator");
         }
@@ -217,8 +222,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventFullDto eventCancellation(Integer userId, Integer eventId) {
-        Event event = eventRepository.getReferenceById(eventId.longValue());
+    public EventFullDto eventCancellation(Long userId, Long eventId) {
+        Event event = eventRepository.getReferenceById(eventId);
         if (event.getInitiator() != userId || !event.getState().equals("PENDING")) {
             throw new BadRequestException("User " + userId + " not initiator or state is not PENDING");
         }
@@ -228,8 +233,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<ParticipationRequestDto> getEventParticipationByUserId(Integer userId, Integer eventId) {
-        Event event = eventRepository.getReferenceById(eventId.longValue());
+    public List<ParticipationRequestDto> getEventParticipationByUserId(Long userId, Long eventId) {
+        Event event = eventRepository.getReferenceById(eventId);
         if (event.getInitiator() != userId) {
             throw new BadRequestException("User " + userId + " not initiator");
         }
@@ -240,8 +245,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public ParticipationRequestDto confirmRequest(Integer userId, Integer eventId, Integer reqId) {
-        Event event = eventRepository.getReferenceById(eventId.longValue());
+    public ParticipationRequestDto confirmRequest(Long userId, Long eventId, Long reqId) {
+        Event event = eventRepository.getReferenceById(eventId);
         if (event.getParticipantLimit() == 0) {
             throw new BadRequestException("Подтверждение не требуется");
         }
@@ -257,7 +262,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public ParticipationRequestDto declineRequest(Integer userId, Integer eventId, Integer reqId) {
+    public ParticipationRequestDto declineRequest(Long userId, Long eventId, Long reqId) {
         Request request = requestService.getRequestByReqId(eventId, reqId);
         request.setStatus("CANCELLED");
         requestService.saveRequest(request);
@@ -265,25 +270,33 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventFullDto publishEvent(Integer eventId) {
+    public EventFullDto publishEvent(Long eventId) {
         //todo проверка на публикацию и дату
-        Event event = eventRepository.getReferenceById(eventId.longValue());
+        Event event = eventRepository.getReferenceById(eventId);
+        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(1)) ||
+            event.getState() != "PENDING") {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ошибка при публикации события");
+        }
         event.setState("PUBLISHED");
+
         eventRepository.save(event);
         return eventMapper.mapToFullDto(event);
     }
 
     @Override
-    public EventFullDto rejectEvent(Integer eventId) {
+    public EventFullDto rejectEvent(Long eventId) {
         //todo проверка на публикацию
-        Event event = eventRepository.getReferenceById(eventId.longValue());
+        Event event = eventRepository.getReferenceById(eventId);
+        if (event.getState() == "PUBLISHED") {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Событие уже опубликовано");
+        }
         event.setState("CANCELLED");
         eventRepository.save(event);
         return eventMapper.mapToFullDto(event);
     }
 
     @Override
-    public void checkEventsExist(List<Integer> eventIds) {
+    public void checkEventsExist(List<Long> eventIds) {
         List<Integer> events = eventRepository.getAllIds();
         if (!events.containsAll(eventIds)) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event dosn't exist");

@@ -16,7 +16,7 @@ public class RequestController {
 
     @GetMapping
     public List<ParticipationRequestDto> getRequestsByUserId(
-            @PathVariable Integer userId
+            @PathVariable Long userId
     ) {
         log.info("Request endpoint: 'GET /users/{}/requests' (Получение заявок пользователя)", userId);
         return requestService.getRequestsByUserId(userId);
@@ -24,8 +24,8 @@ public class RequestController {
 
     @PostMapping
     public ParticipationRequestDto saveRequest(
-            @PathVariable Integer userId,
-            @RequestParam Integer eventId
+            @PathVariable Long userId,
+            @RequestParam Long eventId
 //            @RequestBody ParticipationRequestDto requestDto
     ) {
         log.info("Request endpoint: 'GET /users/{}/requests' (Создание нового запроса на участие)", userId);
@@ -34,8 +34,8 @@ public class RequestController {
 
     @PatchMapping("/{requestId}/cancel")
     public ParticipationRequestDto cancelRequest(
-            @PathVariable Integer userId,
-            @PathVariable Integer requestId
+            @PathVariable Long userId,
+            @PathVariable Long requestId
     ) {
         log.info("Request endpoint: 'GET /users/{}/requests/{}/cancel' " +
                 "(Отмена запроса на участие)", userId, requestId);

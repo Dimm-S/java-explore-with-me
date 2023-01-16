@@ -27,15 +27,15 @@ public class CompilationAdminController {
     }
 
     @DeleteMapping("/{compId}")
-    public void deleteCompilation(@PathVariable Integer compId) {
+    public void deleteCompilation(@PathVariable Long compId) {
         log.info("Request endpoint: 'GET /admin/compilations/{}' (Удаление подборки)", compId);
         compilationService.deleteCompilation(compId);
     }
 
     @DeleteMapping("/{compId}/events/{eventId}")
     public void deleteEventFromCompilation(
-            @PathVariable Integer compId,
-            @PathVariable Integer eventId
+            @PathVariable Long compId,
+            @PathVariable Long eventId
     ) {
         log.info("Request endpoint: 'GET /admin/compilations/{}/events/{}' " +
                 "(Удаление события из подборки)", compId, eventId);
@@ -44,8 +44,8 @@ public class CompilationAdminController {
 
     @PatchMapping("/{compId}/events/{eventId}")
     public void addEventToCompilation(
-            @PathVariable Integer compId,
-            @PathVariable Integer eventId
+            @PathVariable Long compId,
+            @PathVariable Long eventId
     ) {
         log.info("Request endpoint: 'GET /admin/compilations/{}/events/{}' " +
                 "(Добавление события в подборку)", compId, eventId);
@@ -53,14 +53,14 @@ public class CompilationAdminController {
     }
 
     @DeleteMapping("/{compId}/pin")
-    public void unpinCompilation(@PathVariable Integer compId) {
+    public void unpinCompilation(@PathVariable Long compId) {
         log.info("Request endpoint: 'GET /admin/compilations/{}/pin' " +
                 "(Открепление подборки)", compId);
         compilationService.unpinCompilation(compId);
     }
 
     @PatchMapping("/{compId}/pin")
-    public void pinCompilation(@PathVariable Integer compId) {
+    public void pinCompilation(@PathVariable Long compId) {
         log.info("Request endpoint: 'GET /admin/compilations/{}/pin' " +
                 "(Закрепление подборки)", compId);
         compilationService.pinCompilation(compId);

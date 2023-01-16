@@ -25,7 +25,7 @@ public class CompilationController {
     }
 
     @GetMapping("/{compId}")
-    public CompilationDto getCompilation(@PathVariable Integer compId) {
+    public CompilationDto getCompilation(@PathVariable Long compId) {
         log.info("Request endpoint: 'GET /compilations/{}' (получение события)", compId);
         return compilationService.getCompilation(compId);
     }

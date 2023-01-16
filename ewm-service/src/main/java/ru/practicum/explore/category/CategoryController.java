@@ -24,7 +24,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{catId}")
-    public CategoryDto getCategory(@PathVariable Integer catId) {
+    public CategoryDto getCategory(@PathVariable Long catId) {
         log.info("Request endpoint: 'GET /categories/{} (Получение категории по catId)", catId);
         return categoryService.getCategory(catId);
     }

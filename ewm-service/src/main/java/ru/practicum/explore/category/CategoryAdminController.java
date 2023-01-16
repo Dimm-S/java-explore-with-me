@@ -32,7 +32,7 @@ public class CategoryAdminController {
     }
 
     @DeleteMapping("/{catId}")
-    public void deleteCategory(@PathVariable Integer catId) {
+    public void deleteCategory(@PathVariable Long catId) {
         log.info("Request endpoint: 'GET /admin/categories/{}' (Удаление категории)", catId);
         categoryService.deleteCategory(catId);
     }

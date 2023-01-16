@@ -17,7 +17,7 @@ public class UserAdminController {
 
     @GetMapping
     public List<UserDto> getUsers(
-            @RequestParam(required = false) List<Integer> ids,
+            @RequestParam(required = false) List<Long> ids,
             @RequestParam(required = false, defaultValue = "0") Integer from,
             @RequestParam(required = false, defaultValue = "10") Integer size
     ) {
@@ -34,7 +34,7 @@ public class UserAdminController {
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable Integer userId) {
+    public void deleteUser(@PathVariable Long userId) {
         log.info("Request endpoint: 'GET /admin/users/{}' (Удаление пользователя)", userId);
         userService.deleteUser(userId);
     }

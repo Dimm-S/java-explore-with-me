@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(name = "annotation")
     private String annotation;
     @Column(name = "category")
-    private Integer category;
+    private Long category;
     @Column(name = "confirmed_requests")
     private Integer confirmedRequests;
     @Column(name = "created_on")
@@ -27,7 +27,7 @@ public class Event {
     @Column(name = "event_date")
     private LocalDateTime eventDate;
     @Column(name = "initiator")
-    private Integer initiator;
+    private Long initiator;
     @Column(name = "location_lat")
     private Double locationLat;
     @Column(name = "location_lon")

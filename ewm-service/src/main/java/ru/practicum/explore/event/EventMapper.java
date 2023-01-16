@@ -88,7 +88,7 @@ public class EventMapper {
         );
     }
 
-    public Event mapNewToEvent(NewEventDto newEventDto, Integer userId) {
+    public Event mapNewToEvent(NewEventDto newEventDto, Long userId) {
         String state;
         if (newEventDto.getRequestModeration().equals(true)) {
             state = "PENDING";

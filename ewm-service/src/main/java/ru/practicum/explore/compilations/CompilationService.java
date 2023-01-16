@@ -10,15 +10,15 @@ public interface CompilationService {
 
     List<CompilationDto> getCompilations(Boolean pinned, Integer from, Integer size);
 
-    CompilationDto getCompilation(Integer compId);
+    CompilationDto getCompilation(Long compId);
 
     CompilationDto saveCompilation(NewCompilationDto compilationDto);
 
-    void deleteCompilation(Integer compId);
+    void deleteCompilation(Long compId);
 
-    void deleteEventFromCompilation(Integer compId, Integer eventId);
+    void deleteEventFromCompilation(Long compId, Long eventId);
 
-    void unpinCompilation(Integer compId);
+    void unpinCompilation(Long compId);
 
-    void pinCompilation(Integer compId);
+    void pinCompilation(Long compId);
 }

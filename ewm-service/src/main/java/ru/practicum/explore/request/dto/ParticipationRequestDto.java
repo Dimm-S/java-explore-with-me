@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ParticipationRequestDto {
     private LocalDateTime created;
-    private Integer event;
-    private Integer id;
-    private Integer requester;
+    private Long event;
+    private Long id;
+    private Long requester;
     private String status;
 }

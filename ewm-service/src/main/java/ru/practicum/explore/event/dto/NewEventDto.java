@@ -18,7 +18,7 @@ public class NewEventDto {
     @NotBlank(groups = {Create.class})
     private String annotation;
     @NotNull(groups = {Create.class})
-    private Integer category;
+    private Long category;
     @NotBlank(groups = {Create.class})
     private String description;
     @NotNull(groups = {Create.class})

@@ -14,5 +14,5 @@ public interface EventsCompilationsRepository extends JpaRepository<EventsCompil
             value = "SELECT * " +
                     "FROM events_compilations " +
                     "WHERE compilation_id = ?")
-    List<EventsCompilations> getCompilationById(Integer compilationId);
+    List<EventsCompilations> getCompilationById(Long compilationId);
 }

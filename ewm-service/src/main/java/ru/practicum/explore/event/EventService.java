@@ -5,6 +5,7 @@ import ru.practicum.explore.event.dto.EventFullDto;
 import ru.practicum.explore.event.dto.EventShortDto;
 import ru.practicum.explore.event.dto.NewEventDto;
 import ru.practicum.explore.event.dto.UpdateEventRequest;
+import ru.practicum.explore.event.model.Event;
 import ru.practicum.explore.request.dto.ParticipationRequestDto;
 
 import java.util.List;
@@ -29,31 +30,33 @@ public interface EventService {
                                   Integer from,
                                   Integer size);
 
-    List<EventShortDto> getEventsListByIdsList(List<Integer> idList);
+    List<EventShortDto> getEventsListByIdsList(List<Long> idList);
 
     EventFullDto getEvent(Long id, String ip);
 
+    Event getEvent(Long eventId);
+
     List<EventShortDto> getEventsByUserId(Integer userId, Integer from, Integer size);
 
-    EventFullDto patchEventByUserId(Integer userId, UpdateEventRequest updateEventRequest);
+    EventFullDto patchEventByUserId(Long userId, UpdateEventRequest updateEventRequest);
 
-    EventFullDto updateEvent(Integer eventId, NewEventDto updatedEvent);
+    EventFullDto updateEvent(Long eventId, NewEventDto updatedEvent);
 
-    EventFullDto saveEvent(Integer userId, NewEventDto newEventDto);
+    EventFullDto saveEvent(Long userId, NewEventDto newEventDto);
 
-    EventFullDto getEventByUserIdAndEventId(Integer userId, Integer eventId);
+    EventFullDto getEventByUserIdAndEventId(Long userId, Long eventId);
 
-    EventFullDto eventCancellation(Integer userId, Integer eventId);
+    EventFullDto eventCancellation(Long userId, Long eventId);
 
-    List<ParticipationRequestDto> getEventParticipationByUserId(Integer userId, Integer eventId);
+    List<ParticipationRequestDto> getEventParticipationByUserId(Long userId, Long eventId);
 
-    ParticipationRequestDto confirmRequest(Integer userId, Integer eventId, Integer reqId);
+    ParticipationRequestDto confirmRequest(Long userId, Long eventId, Long reqId);
 
-    ParticipationRequestDto declineRequest(Integer userId, Integer eventId, Integer reqId);
+    ParticipationRequestDto declineRequest(Long userId, Long eventId, Long reqId);
 
-    EventFullDto publishEvent(Integer eventId);
+    EventFullDto publishEvent(Long eventId);
 
-    EventFullDto rejectEvent(Integer eventId);
+    EventFullDto rejectEvent(Long eventId);
 
-    void checkEventsExist(List<Integer> eventIds);
+    void checkEventsExist(List<Long> eventIds);
 }

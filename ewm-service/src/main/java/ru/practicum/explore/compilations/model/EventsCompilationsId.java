@@ -3,10 +3,10 @@ package ru.practicum.explore.compilations.model;
 import java.io.Serializable;
 
 public class EventsCompilationsId implements Serializable {
-    private Integer compilationId;
-    private Integer eventId;
+    private Long compilationId;
+    private Long eventId;
 
-    public EventsCompilationsId(Integer compilationId, Integer eventId) {
+    public EventsCompilationsId(Long compilationId, Long eventId) {
         this.compilationId = compilationId;
         this.eventId = eventId;
     }

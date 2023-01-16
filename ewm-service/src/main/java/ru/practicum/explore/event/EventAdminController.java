@@ -31,20 +31,20 @@ public class EventAdminController {
 
     @PutMapping("/{eventId}")
     public EventFullDto updateEvent(
-            @PathVariable Integer eventId,
+            @PathVariable Long eventId,
             @RequestBody NewEventDto updatedEvent) {
         log.info("Request endpoint: 'GET /admin/events/{}' (Редактирование события)", eventId);
         return eventService.updateEvent(eventId, updatedEvent);
     }
 
     @PatchMapping("/{eventId}/publish")
-    public EventFullDto publishEvent(@PathVariable Integer eventId) {
+    public EventFullDto publishEvent(@PathVariable Long eventId) {
         log.info("Request endpoint: 'GET /admin/events/{}/publish' (Редактирование события)", eventId);
         return eventService.publishEvent(eventId);
     }
 
     @PatchMapping("/{eventId}/reject")
-    public EventFullDto rejectEvent(@PathVariable Integer eventId) {
+    public EventFullDto rejectEvent(@PathVariable Long eventId) {
         log.info("Request endpoint: 'GET /admin/events/{}/reject' (Отклонение события)", eventId);
         return eventService.rejectEvent(eventId);
     }

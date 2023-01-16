@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(name = "created")
     private LocalDateTime created;
     @Column(name = "event")
-    private Integer event_id;
+    private Long event_id;
     @Column(name = "requester")
-    private Integer requester_id;
+    private Long requester_id;
     @Column(name = "status")
     private String status;
 }

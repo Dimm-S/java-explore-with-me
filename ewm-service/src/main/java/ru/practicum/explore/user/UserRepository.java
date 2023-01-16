@@ -9,13 +9,13 @@ import ru.practicum.explore.user.model.User;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(nativeQuery = true,
             value = "SELECT * " +
                     "FROM users " +
                     "WHERE id in (:ids)")
-    List<User> getUsersListByIdList(List<Integer> ids, Pageable pageable);
+    List<User> getUsersListByIdList(List<Long> ids, Pageable pageable);
 
     Boolean existsUserByName(String name);
 }

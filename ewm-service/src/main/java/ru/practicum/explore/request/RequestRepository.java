@@ -12,17 +12,24 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
             value = "SELECT * " +
                     "FROM requests " +
                     "WHERE event = ?")
-    List<Request> getRequestsByEvent(Integer eventId);
+    List<Request> getRequestsByEvent(Long eventId);
 
     @Query(nativeQuery = true,
             value = "SELECT * " +
                     "FROM requests " +
                     "WHERE event = ? AND requester = ?")
-    Request getRequestsByRequester(Integer eventId, Integer reqId);
+    Request getRequestsByRequester(Long eventId, Long reqId);
 
     @Query(nativeQuery = true,
             value = "SELECT * " +
                     "FROM requests " +
                     "WHERE requester = ?")
-    List<Request> getRequestsByUserId(Integer userId);
+    List<Request> getRequestsByUserId(Long userId);
+
+    @Query(nativeQuery = true,
+            value = "SELECT * " +
+                    "FROM requests " +
+                    "WHERE requester = ? " +
+                    "AND event = ?")
+    Request getRequestByUserIdAndEventId(Long userId, Long eventId);
 }

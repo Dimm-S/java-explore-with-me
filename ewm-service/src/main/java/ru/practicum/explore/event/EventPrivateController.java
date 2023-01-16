@@ -33,7 +33,7 @@ public class EventPrivateController {
 
     @PatchMapping
     public EventFullDto patchEventByUserId(
-            @PathVariable Integer userId,
+            @PathVariable Long userId,
             @RequestBody UpdateEventRequest updateEventRequest
             ) {
         log.info("Request endpoint: 'GET /users/{}/events' (Изменение события пользователем)", userId);
@@ -42,7 +42,7 @@ public class EventPrivateController {
 
     @PostMapping
     public EventFullDto saveEvent(
-            @PathVariable Integer userId,
+            @PathVariable Long userId,
             @Validated({Create.class}) @RequestBody NewEventDto newEventDto
             ) {
         log.info("Request endpoint: 'GET /users/{}/events' (Создание события пользователем)", userId);
@@ -51,8 +51,8 @@ public class EventPrivateController {
 
     @GetMapping("/{eventId}")
     public EventFullDto getEventByUserIdAndEventId(
-            @PathVariable Integer userId,
-            @PathVariable Integer eventId
+            @PathVariable Long userId,
+            @PathVariable Long eventId
     ) {
         log.info("Request endpoint: 'GET /users/{}/events/{}' (Получение события)", userId, eventId);
         return eventService.getEventByUserIdAndEventId(userId, eventId);
@@ -60,8 +60,8 @@ public class EventPrivateController {
 
     @PatchMapping("/{eventId}")
     public EventFullDto eventCancellation(
-            @PathVariable Integer userId,
-            @PathVariable Integer eventId
+            @PathVariable Long userId,
+            @PathVariable Long eventId
     ) {
         log.info("Request endpoint: 'GET /users/{}/events/{}' (Отмена события)", userId, eventId);
         return eventService.eventCancellation(userId, eventId);
@@ -69,8 +69,8 @@ public class EventPrivateController {
 
     @GetMapping("/{eventId}/requests")
     public List<ParticipationRequestDto> getEventParticipationByUserId(
-            @PathVariable Integer userId,
-            @PathVariable Integer eventId
+            @PathVariable Long userId,
+            @PathVariable Long eventId
     ) {
         log.info("Request endpoint: 'GET /users/{}/events/{}/requests'" +
                 " (Получение списка участников)", userId, eventId);
@@ -79,9 +79,9 @@ public class EventPrivateController {
 
     @PatchMapping("/{eventId}/requests/{reqId}/confirm")
     public ParticipationRequestDto confirmRequest(
-            @PathVariable Integer userId,
-            @PathVariable Integer eventId,
-            @PathVariable Integer reqId
+            @PathVariable Long userId,
+            @PathVariable Long eventId,
+            @PathVariable Long reqId
     ) {
         log.info("Request endpoint: 'GET /users/{}/events/{}/requests/{}/confirm'" +
                 " (Подтверждение заявки)", userId, eventId, reqId);
@@ -90,9 +90,9 @@ public class EventPrivateController {
 
     @PatchMapping("/{eventId}/requests/{reqId}/reject")
     public ParticipationRequestDto declineRequest(
-            @PathVariable Integer userId,
-            @PathVariable Integer eventId,
-            @PathVariable Integer reqId
+            @PathVariable Long userId,
+            @PathVariable Long eventId,
+            @PathVariable Long reqId
     ) {
         log.info("Request endpoint: 'GET /users/{}/events/{}/requests/{}/confirm'" +
                 " (Отклонение заявки)", userId, eventId, reqId);

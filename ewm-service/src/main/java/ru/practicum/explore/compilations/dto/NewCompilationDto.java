@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class NewCompilationDto {
-    private List<Integer> events;
+    private List<Long> events;
     private Boolean pinned;
     @NotNull(groups = {Create.class})
     private String title;

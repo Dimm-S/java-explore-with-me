@@ -12,7 +12,7 @@ public class EventShortDto {
     private EventFullDto.CategoryDto category;
     private Integer confirmedRequests;
     private LocalDateTime eventDate;
-    private Integer id;
+    private Long id;
     private EventFullDto.UserShortDto initiator;
     private Boolean paid;
     private String title;

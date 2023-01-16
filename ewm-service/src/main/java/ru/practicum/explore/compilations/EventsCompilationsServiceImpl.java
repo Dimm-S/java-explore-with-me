@@ -12,7 +12,7 @@ public class EventsCompilationsServiceImpl implements EventsCompilationsService{
     private final EventsCompilationsRepository eventsCompilationsRepository;
 
     @Override
-    public List<EventsCompilations> getCompilation(Integer compilationId) {
+    public List<EventsCompilations> getCompilation(Long compilationId) {
         return eventsCompilationsRepository.getCompilationById(compilationId);
     }
 
@@ -22,7 +22,7 @@ public class EventsCompilationsServiceImpl implements EventsCompilationsService{
     }
 
     @Override
-    public void deleteEventFromCompilation(Integer compId, Integer eventId) {
+    public void deleteEventFromCompilation(Long compId, Long eventId) {
         eventsCompilationsRepository.delete(new EventsCompilations(compId, eventId));
     }
 }
