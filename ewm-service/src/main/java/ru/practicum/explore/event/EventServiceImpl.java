@@ -130,10 +130,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventFullDto getEvent(Long id, String ip) {
         String stringId = "/" + id;
-        saveHit(ip, stringId);
         Event event = eventRepository.findById(id).get();
         Category category = categoryReposirory.getReferenceById(event.getCategory());
         User user = userRepository.getReferenceById(event.getInitiator());
+        saveHit(ip, stringId);
         return eventMapper.mapToFullDto(event, category, user);
     }
 

@@ -3,6 +3,7 @@ package ru.practicum.ewmstats;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmstats.dto.HitDtoInput;
 import ru.practicum.ewmstats.dto.ViewStats;
 
