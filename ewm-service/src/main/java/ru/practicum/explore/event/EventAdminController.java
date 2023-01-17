@@ -9,7 +9,6 @@ import ru.practicum.explore.event.dto.NewEventDto;
 
 import java.util.List;
 
-@Transactional
 @RestController
 @Slf4j
 @RequiredArgsConstructor

@@ -1,7 +1,12 @@
 package ru.practicum.explore.compilations.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
+@Embeddable
 public class EventsCompilationsId implements Serializable {
     private Long compilationId;
     private Long eventId;
@@ -9,5 +14,9 @@ public class EventsCompilationsId implements Serializable {
     public EventsCompilationsId(Long compilationId, Long eventId) {
         this.compilationId = compilationId;
         this.eventId = eventId;
+    }
+
+    public EventsCompilationsId() {
+
     }
 }

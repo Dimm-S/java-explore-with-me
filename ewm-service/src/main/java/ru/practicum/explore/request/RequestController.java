@@ -26,7 +26,6 @@ public class RequestController {
     public ParticipationRequestDto saveRequest(
             @PathVariable Long userId,
             @RequestParam Long eventId
-//            @RequestBody ParticipationRequestDto requestDto
     ) {
         log.info("Request endpoint: 'GET /users/{}/requests' (Создание нового запроса на участие)", userId);
         return requestService.saveRequest(userId, eventId);

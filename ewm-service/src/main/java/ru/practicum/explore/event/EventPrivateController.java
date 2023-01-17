@@ -14,7 +14,6 @@ import ru.practicum.explore.utils.Create;
 
 import java.util.List;
 
-@Transactional
 @RestController
 @Slf4j
 @Validated

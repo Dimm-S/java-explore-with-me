@@ -224,7 +224,7 @@ public class EventServiceImpl implements EventService {
     public EventFullDto eventCancellation(Long userId, Long eventId) {
         Event event = eventRepository.getReferenceById(eventId);
         if (event.getInitiator() != userId || !event.getState().equals("PENDING")) {
-            throw new BadRequestException("User " + userId + " not initiator or state is not PENDING");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User " + userId + " not initiator or state is not PENDING");
         }
         event.setState("CANCELED");
         eventRepository.save(event);
@@ -297,8 +297,11 @@ public class EventServiceImpl implements EventService {
     @Override
     public void checkEventsExist(List<Long> eventIds) {
         List<Integer> events = eventRepository.getAllIds();
-        if (!events.containsAll(eventIds)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event dosn't exist");
+        List<Long> eventList = events.stream().map(Long::valueOf).collect(Collectors.toList());
+        for (Long event : eventIds) {
+            if (!eventList.contains(event)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event doesn't exist");
+            }
         }
     }
 
