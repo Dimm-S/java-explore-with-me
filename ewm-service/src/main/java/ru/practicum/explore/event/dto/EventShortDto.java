@@ -11,7 +11,7 @@ public class EventShortDto {
     private String annotation;
     private EventFullDto.CategoryDto category;
     private Integer confirmedRequests;
-    private LocalDateTime eventDate;
+    private String eventDate;
     private Long id;
     private EventFullDto.UserShortDto initiator;
     private Boolean paid;

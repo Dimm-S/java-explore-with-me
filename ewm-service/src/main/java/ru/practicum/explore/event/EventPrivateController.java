@@ -2,6 +2,7 @@ package ru.practicum.explore.event;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explore.event.dto.EventFullDto;
@@ -13,6 +14,7 @@ import ru.practicum.explore.utils.Create;
 
 import java.util.List;
 
+@Transactional
 @RestController
 @Slf4j
 @Validated

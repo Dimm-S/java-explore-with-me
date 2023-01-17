@@ -30,6 +30,13 @@ public class QPredicates {
         return this;
     }
 
+    public QPredicates add(String object, BooleanExpression function) {
+        if (object != null) {
+            predicates.add(function);
+        }
+        return this;
+    }
+
     public Predicate buildAnd() {
         return ExpressionUtils.allOf(predicates);
     }

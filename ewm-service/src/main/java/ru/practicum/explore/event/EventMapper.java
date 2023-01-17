@@ -77,7 +77,7 @@ public class EventMapper {
                         categoryService.getCategory(event.getCategory()).getId(),
                         categoryService.getCategory(event.getCategory()).getName()),
                 event.getConfirmedRequests(),
-                event.getEventDate(),
+                event.getEventDate().format(outFormatter),
                 event.getId(),
                 new EventFullDto.UserShortDto(
                         userService.getUser(event.getInitiator()).getId(),

@@ -61,8 +61,7 @@ public class EventServiceImpl implements EventService {
                                          Integer size) {
         saveHit(ip, "");
         Predicate predicate = QPredicates.builder()
-                .add(text, event.annotation::containsIgnoreCase)
-                .add(text, event.description::containsIgnoreCase)
+                .add(text, (event.annotation.containsIgnoreCase(text)).or(event.description.containsIgnoreCase(text)))
                 .add(categories, event.category::in)
                 .add(paid, event.paid::eq)
                 .add(parseLocalDateTime(rangeStart, formatter), event.eventDate::goe)
@@ -73,9 +72,10 @@ public class EventServiceImpl implements EventService {
 
         Pageable pageable;
         Iterable<Event> eventList;
-        if (sort != null) {
-            Sort sortArg = Sort.by(sort.toLowerCase(Locale.ROOT));
-            pageable = PageRequest.of(from, size, Sort.by(sort.toLowerCase(Locale.ROOT)));
+        if (sort != null && sort.equals("EVENT_DATE")) {
+            pageable = PageRequest.of(from, size, Sort.by("eventDate"));
+        } else if (sort != null && sort.equals("VIEWS")) {
+            pageable = PageRequest.of(from, size, Sort.by("views"));
         } else {
             pageable = PageRequest.of(from, size);
         }
@@ -84,7 +84,6 @@ public class EventServiceImpl implements EventService {
         } else {
             eventList = eventRepository.findAll(pageable);
         }
-
 
         return StreamSupport.stream(eventList.spliterator(), false)
                 .map(eventMapper::mapToShortDto)
@@ -169,7 +168,7 @@ public class EventServiceImpl implements EventService {
                 event.setDescription(updateEventRequest.getDescription());
             }
             if (updateEventRequest.getEventDate() != null) {
-                event.setEventDate(updateEventRequest.getEventDate());
+                event.setEventDate(parseLocalDateTime(updateEventRequest.getEventDate(), formatter));
             }
             if (updateEventRequest.getPaid() != null) {
                 event.setPaid(updateEventRequest.getPaid());
@@ -180,7 +179,7 @@ public class EventServiceImpl implements EventService {
             if (updateEventRequest.getTitle() != null) {
                 event.setTitle(updateEventRequest.getTitle());
             }
-            if (event.getState().equals("CANCELLED")) {
+            if (event.getState().equals("CANCELED")) {
                 event.setState("PUBLISHED");
             }
         }
@@ -264,7 +263,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public ParticipationRequestDto declineRequest(Long userId, Long eventId, Long reqId) {
         Request request = requestService.getRequestByReqId(eventId, reqId);
-        request.setStatus("CANCELLED");
+        request.setStatus("CANCELED");
         requestService.saveRequest(request);
         return requestMapper.mapToDto(request);
     }
@@ -273,8 +272,8 @@ public class EventServiceImpl implements EventService {
     public EventFullDto publishEvent(Long eventId) {
         //todo проверка на публикацию и дату
         Event event = eventRepository.getReferenceById(eventId);
-        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(1)) ||
-            event.getState() != "PENDING") {
+        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(1).minusSeconds(5))/* ||
+                !Objects.equals(event.getState(), "PENDING")*/) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ошибка при публикации события");
         }
         event.setState("PUBLISHED");
@@ -290,7 +289,7 @@ public class EventServiceImpl implements EventService {
         if (event.getState() == "PUBLISHED") {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Событие уже опубликовано");
         }
-        event.setState("CANCELLED");
+        event.setState("CANCELED");
         eventRepository.save(event);
         return eventMapper.mapToFullDto(event);
     }

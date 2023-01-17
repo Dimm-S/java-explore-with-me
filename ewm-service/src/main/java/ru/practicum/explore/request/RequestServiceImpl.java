@@ -64,7 +64,7 @@ public class RequestServiceImpl implements RequestService{
     @Override
     public ParticipationRequestDto cancelRequest(Long userId, Long requestId) {
         Request request = requestRepository.getReferenceById(requestId);
-        request.setStatus("CANCELLED");
+        request.setStatus("CANCELED");
         requestRepository.save(request);
         //todo уменьшить confirmedRequests в эвенте
         return requestMapper.mapToDto(request);
