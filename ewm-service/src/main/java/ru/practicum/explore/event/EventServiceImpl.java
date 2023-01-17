@@ -190,16 +190,32 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventFullDto updateEvent(Long eventId, NewEventDto updatedEvent) {
         Event event = eventRepository.getReferenceById(eventId);
-        event.setAnnotation(updatedEvent.getAnnotation());
-        event.setCategory(updatedEvent.getCategory());
-        event.setDescription(updatedEvent.getDescription());
-        event.setEventDate(parseLocalDateTime(updatedEvent.getEventDate(), formatter));
-        event.setLocationLat(updatedEvent.getLocation().getLat());
-        event.setLocationLon(updatedEvent.getLocation().getLon());
-        event.setPaid(updatedEvent.getPaid());
-        event.setParticipantLimit(updatedEvent.getParticipantLimit());
-        event.setRequestModeration(updatedEvent.getRequestModeration());
-        event.setTitle(updatedEvent.getTitle());
+        if (updatedEvent.getAnnotation() != null) {
+            event.setAnnotation(updatedEvent.getAnnotation());
+        }
+        if (updatedEvent.getCategory() != null) {
+            event.setCategory(updatedEvent.getCategory());
+        }
+        if (updatedEvent.getDescription() != null) {
+            event.setDescription(updatedEvent.getDescription());
+        }
+        if (updatedEvent.getEventDate() != null) {
+            event.setEventDate(parseLocalDateTime(updatedEvent.getEventDate(), formatter));
+        }
+        if (updatedEvent.getLocation() != null) {
+            event.setLocationLat(updatedEvent.getLocation().getLat());
+            event.setLocationLon(updatedEvent.getLocation().getLon());
+        }
+        if (updatedEvent.getPaid() != null) {
+            event.setPaid(updatedEvent.getPaid());
+        }if (updatedEvent.getParticipantLimit() != null) {
+            event.setParticipantLimit(updatedEvent.getParticipantLimit());
+        }if (updatedEvent.getRequestModeration() != null) {
+            event.setRequestModeration(updatedEvent.getRequestModeration());
+        }if (updatedEvent.getTitle() != null) {
+            event.setTitle(updatedEvent.getTitle());
+        }
+
         eventRepository.save(event);
         return eventMapper.mapToFullDto(event);
     }
@@ -263,7 +279,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public ParticipationRequestDto declineRequest(Long userId, Long eventId, Long reqId) {
         Request request = requestService.getRequestByReqId(eventId, reqId);
-        request.setStatus("CANCELED");
+        request.setStatus("REJECTED");
         requestService.saveRequest(request);
         return requestMapper.mapToDto(request);
     }

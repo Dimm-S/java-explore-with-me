@@ -27,7 +27,7 @@ public class RequestServiceImpl implements RequestService{
 
     @Override
     public Request getRequestByReqId(Long eventId, Long reqId) {
-        return null;
+        return requestRepository.getRequestsByReqId(eventId, reqId);
     }
 
     @Override

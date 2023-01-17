@@ -95,7 +95,7 @@ public class EventPrivateController {
             @PathVariable Long eventId,
             @PathVariable Long reqId
     ) {
-        log.info("Request endpoint: 'GET /users/{}/events/{}/requests/{}/confirm'" +
+        log.info("Request endpoint: 'GET /users/{}/events/{}/requests/{}/reject'" +
                 " (Отклонение заявки)", userId, eventId, reqId);
         return eventService.declineRequest(userId, eventId, reqId);
     }
