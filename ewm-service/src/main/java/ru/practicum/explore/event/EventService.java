@@ -36,7 +36,7 @@ public interface EventService {
 
     Event getEvent(Long eventId);
 
-    List<EventShortDto> getEventsByUserId(Integer userId, Integer from, Integer size);
+    List<EventShortDto> getEventsByUserId(Long userId, Integer from, Integer size);
 
     EventFullDto patchEventByUserId(Long userId, UpdateEventRequest updateEventRequest);
 

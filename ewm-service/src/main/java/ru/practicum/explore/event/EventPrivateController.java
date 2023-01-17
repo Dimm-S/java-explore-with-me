@@ -23,7 +23,7 @@ public class EventPrivateController {
 
     @GetMapping
     public List<EventShortDto> getEventsByUserId(
-            @PathVariable Integer userId,
+            @PathVariable Long userId,
             @RequestParam(required = false, defaultValue = "0") Integer from,
             @RequestParam(required = false, defaultValue = "10") Integer size
     ) {

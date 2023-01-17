@@ -143,9 +143,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventShortDto> getEventsByUserId(Integer userId, Integer from, Integer size) {
+    public List<EventShortDto> getEventsByUserId(Long userId, Integer from, Integer size) {
         Predicate predicate = QPredicates.builder()
-                .add(userId, event.initiator::eq)
+                .add(userId.intValue(), event.initiator::eq)
                 .buildAnd();
         Pageable pageable = PageRequest.of(from, size);
         Page<Event> events = eventRepository.findAll(predicate, pageable);
