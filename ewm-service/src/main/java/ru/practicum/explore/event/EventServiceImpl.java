@@ -51,7 +51,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventShortDto> getEvents(String ip,
                                          String text,
-                                         List<Integer> categories,
+                                         List<Long> categories,
                                          Boolean paid,
                                          String rangeStart,
                                          String rangeEnd,
@@ -92,9 +92,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventFullDto> getEvents(List<Integer> users,
+    public List<EventFullDto> getEvents(List<Long> users,
                                          List<String> states,
-                                         List<Integer> categories,
+                                         List<Long> categories,
                                          String rangeStart,
                                          String rangeEnd,
                                          Integer from,
@@ -145,7 +145,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventShortDto> getEventsByUserId(Long userId, Integer from, Integer size) {
         Predicate predicate = QPredicates.builder()
-                .add(userId.intValue(), event.initiator::eq)
+                .add(userId, event.initiator::eq)
                 .buildAnd();
         Pageable pageable = PageRequest.of(from, size);
         Page<Event> events = eventRepository.findAll(predicate, pageable);

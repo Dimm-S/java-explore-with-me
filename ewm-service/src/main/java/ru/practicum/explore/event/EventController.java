@@ -20,7 +20,7 @@ public class EventController {
     @GetMapping
     public List<EventShortDto> getEvents(
             @RequestParam(name = "text", required = false) String text,
-            @RequestParam(name = "categories", required = false) List<Integer> categories,
+            @RequestParam(name = "categories", required = false) List<Long> categories,
             @RequestParam(name = "paid", required = false) Boolean paid,
             @RequestParam(name = "rangeStart", required = false) String rangeStart,
             @RequestParam(name = "rangeEnd", required = false) String rangeEnd,

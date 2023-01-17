@@ -13,7 +13,7 @@ import java.util.List;
 public interface EventService {
     List<EventShortDto> getEvents(String ip,
                                   String text,
-                                  List<Integer> categories,
+                                  List<Long> categories,
                                   Boolean paid,
                                   String rangeStart,
                                   String rangeEnd,
@@ -22,9 +22,9 @@ public interface EventService {
                                   Integer from,
                                   Integer size);
 
-    List<EventFullDto> getEvents(List<Integer> users,
+    List<EventFullDto> getEvents(List<Long> users,
                                   List<String> states,
-                                  List<Integer> categories,
+                                  List<Long> categories,
                                   String rangeStart,
                                   String rangeEnd,
                                   Integer from,

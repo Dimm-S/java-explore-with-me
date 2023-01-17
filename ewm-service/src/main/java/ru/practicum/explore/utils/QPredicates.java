@@ -3,6 +3,7 @@ package ru.practicum.explore.utils;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
+//import com.mysema.query.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
