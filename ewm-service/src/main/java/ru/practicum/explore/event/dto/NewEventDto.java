@@ -8,12 +8,10 @@ import ru.practicum.explore.utils.Create;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Data
 @AllArgsConstructor
+@EventDate2Hours(groups = {Create.class})
 public class NewEventDto {
     @NotBlank(groups = {Create.class})
     private String annotation;
@@ -22,7 +20,7 @@ public class NewEventDto {
     @NotBlank(groups = {Create.class})
     private String description;
     @NotNull(groups = {Create.class})
-    private String eventDate; //todo добавить проверку даты
+    private String eventDate;
     @NotNull(groups = {Create.class})
     private Location location;
     private Boolean paid;

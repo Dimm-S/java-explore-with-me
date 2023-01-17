@@ -39,7 +39,7 @@ public class EventAdminController {
 
     @PatchMapping("/{eventId}/publish")
     public EventFullDto publishEvent(@PathVariable Long eventId) {
-        log.info("Request endpoint: 'GET /admin/events/{}/publish' (Редактирование события)", eventId);
+        log.info("Request endpoint: 'GET /admin/events/{}/publish' (Публикация события)", eventId);
         return eventService.publishEvent(eventId);
     }
 
