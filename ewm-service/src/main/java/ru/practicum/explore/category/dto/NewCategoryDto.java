@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import ru.practicum.explore.utils.Create;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor

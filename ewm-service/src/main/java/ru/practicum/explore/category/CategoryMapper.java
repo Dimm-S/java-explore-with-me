@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.practicum.explore.category.dto.CategoryDto;
 import ru.practicum.explore.category.dto.NewCategoryDto;
 import ru.practicum.explore.category.model.Category;
-import ru.practicum.explore.event.dto.EventFullDto;
 
 @Service
 @RequiredArgsConstructor

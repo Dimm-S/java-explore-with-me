@@ -31,7 +31,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -92,12 +93,12 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventFullDto> getEvents(List<Long> users,
-                                         List<String> states,
-                                         List<Long> categories,
-                                         String rangeStart,
-                                         String rangeEnd,
-                                         Integer from,
-                                         Integer size) {
+                                        List<String> states,
+                                        List<Long> categories,
+                                        String rangeStart,
+                                        String rangeEnd,
+                                        Integer from,
+                                        Integer size) {
         Predicate predicate = QPredicates.builder()
                 .add(users, event.initiator::in)
                 .add(states, event.state::in)
@@ -208,11 +209,14 @@ public class EventServiceImpl implements EventService {
         }
         if (updatedEvent.getPaid() != null) {
             event.setPaid(updatedEvent.getPaid());
-        }if (updatedEvent.getParticipantLimit() != null) {
+        }
+        if (updatedEvent.getParticipantLimit() != null) {
             event.setParticipantLimit(updatedEvent.getParticipantLimit());
-        }if (updatedEvent.getRequestModeration() != null) {
+        }
+        if (updatedEvent.getRequestModeration() != null) {
             event.setRequestModeration(updatedEvent.getRequestModeration());
-        }if (updatedEvent.getTitle() != null) {
+        }
+        if (updatedEvent.getTitle() != null) {
             event.setTitle(updatedEvent.getTitle());
         }
 
@@ -239,7 +243,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventFullDto eventCancellation(Long userId, Long eventId) {
         Event event = eventRepository.getReferenceById(eventId);
-        if (event.getInitiator() != userId || !event.getState().equals("PENDING")) {
+        if (!Objects.equals(event.getInitiator(), userId) || !event.getState().equals("PENDING")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User " + userId + " not initiator or state is not PENDING");
         }
         event.setState("CANCELED");
@@ -286,10 +290,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventFullDto publishEvent(Long eventId) {
-        //todo проверка на публикацию и дату
         Event event = eventRepository.getReferenceById(eventId);
-        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(1).minusSeconds(5))/* ||
-                !Objects.equals(event.getState(), "PENDING")*/) {
+        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ошибка при публикации события");
         }
         event.setState("PUBLISHED");
@@ -300,7 +302,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventFullDto rejectEvent(Long eventId) {
-        //todo проверка на публикацию
         Event event = eventRepository.getReferenceById(eventId);
         if (event.getState() == "PUBLISHED") {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Событие уже опубликовано");

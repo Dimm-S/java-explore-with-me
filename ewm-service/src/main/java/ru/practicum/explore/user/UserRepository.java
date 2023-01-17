@@ -1,10 +1,8 @@
 package ru.practicum.explore.user;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.practicum.explore.event.model.Event;
 import ru.practicum.explore.user.model.User;
 
 import java.util.List;

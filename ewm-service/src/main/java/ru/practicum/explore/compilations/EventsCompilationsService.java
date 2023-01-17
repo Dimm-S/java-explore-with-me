@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface EventsCompilationsService {
     List<EventsCompilations> getCompilation(Long compilationId);
+
     void saveEventCompilation(EventsCompilations eventsCompilations);
+
     void deleteEventFromCompilation(Long compId, Long eventId);
 }

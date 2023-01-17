@@ -21,7 +21,7 @@ public class CompilationAdminController {
     @PostMapping
     public CompilationDto saveCompilation(
             @Validated({Create.class}) @RequestBody NewCompilationDto compilationDto
-            ) {
+    ) {
         log.info("Request endpoint: 'GET /admin/compilations' (Добавление подборки)");
         return compilationService.saveCompilation(compilationDto);
     }

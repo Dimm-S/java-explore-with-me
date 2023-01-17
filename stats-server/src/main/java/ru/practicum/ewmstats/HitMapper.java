@@ -3,7 +3,6 @@ package ru.practicum.ewmstats;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewmstats.dto.HitDtoInput;
-import ru.practicum.ewmstats.dto.ViewStats;
 
 import java.time.LocalDateTime;
 

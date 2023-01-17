@@ -1,9 +1,7 @@
 package ru.practicum.explore.event.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.explore.utils.Create;
 
 import javax.validation.constraints.NotBlank;

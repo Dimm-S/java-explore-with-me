@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.practicum.explore.event.EventRepository;
-import ru.practicum.explore.event.EventService;
 import ru.practicum.explore.event.model.Event;
 import ru.practicum.explore.request.dto.ParticipationRequestDto;
 import ru.practicum.explore.request.model.Request;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class RequestServiceImpl implements RequestService{
+public class RequestServiceImpl implements RequestService {
     private final RequestRepository requestRepository;
     private final RequestMapper requestMapper;
     private final EventRepository eventRepository;
@@ -48,9 +47,9 @@ public class RequestServiceImpl implements RequestService{
         //todo проверки
         Event event = eventRepository.getReferenceById(eventId);
         if (requestRepository.getRequestByUserIdAndEventId(userId, eventId) != null ||
-            event.getInitiator() == userId ||
-            !event.getState().equals("PUBLISHED") ||
-            (event.getConfirmedRequests() == event.getParticipantLimit() && event.getParticipantLimit() != 0)) {
+                event.getInitiator() == userId ||
+                !event.getState().equals("PUBLISHED") ||
+                (event.getConfirmedRequests() == event.getParticipantLimit() && event.getParticipantLimit() != 0)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Недопустимые условия запроса на участие");
         }
         Request newRequest = requestMapper.mapDtoToNewRequest(userId, eventId);

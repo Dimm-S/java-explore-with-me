@@ -1,6 +1,5 @@
 package ru.practicum.explore.event;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.practicum.explore.event.dto.EventFullDto;
 import ru.practicum.explore.event.dto.EventShortDto;
 import ru.practicum.explore.event.dto.NewEventDto;
@@ -23,12 +22,12 @@ public interface EventService {
                                   Integer size);
 
     List<EventFullDto> getEvents(List<Long> users,
-                                  List<String> states,
-                                  List<Long> categories,
-                                  String rangeStart,
-                                  String rangeEnd,
-                                  Integer from,
-                                  Integer size);
+                                 List<String> states,
+                                 List<Long> categories,
+                                 String rangeStart,
+                                 String rangeEnd,
+                                 Integer from,
+                                 Integer size);
 
     List<EventShortDto> getEventsListByIdsList(List<Long> idList);
 

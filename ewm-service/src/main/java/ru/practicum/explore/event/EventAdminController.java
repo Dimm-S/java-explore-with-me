@@ -2,7 +2,6 @@ package ru.practicum.explore.event;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explore.event.dto.EventFullDto;
 import ru.practicum.explore.event.dto.NewEventDto;
@@ -38,7 +37,7 @@ public class EventAdminController {
         return eventService.updateEvent(eventId, updatedEvent);
     }
 
-        @PatchMapping("/{eventId}/publish")
+    @PatchMapping("/{eventId}/publish")
     public EventFullDto publishEvent(@PathVariable Long eventId) {
         log.info("Request endpoint: 'GET /admin/events/{}/publish' (Публикация события)", eventId);
         return eventService.publishEvent(eventId);

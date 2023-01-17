@@ -11,7 +11,6 @@ import ru.practicum.explore.event.model.Event;
 import ru.practicum.explore.user.UserService;
 import ru.practicum.explore.user.model.User;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -89,12 +88,6 @@ public class EventMapper {
     }
 
     public Event mapNewToEvent(NewEventDto newEventDto, Long userId) {
-        String state;
-        if (newEventDto.getRequestModeration().equals(true)) {
-            state = "PENDING";
-        } else {
-            state = "PUBLISHED";
-        }
         return new Event(
                 null,
                 newEventDto.getAnnotation(),
@@ -110,7 +103,7 @@ public class EventMapper {
                 newEventDto.getParticipantLimit(),
                 null,
                 newEventDto.getRequestModeration(),
-                state,
+                "PENDING",
                 newEventDto.getTitle(),
                 0L
         );

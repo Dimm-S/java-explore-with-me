@@ -2,7 +2,6 @@ package ru.practicum.explore.event;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explore.event.dto.EventFullDto;
@@ -36,7 +35,7 @@ public class EventPrivateController {
     public EventFullDto patchEventByUserId(
             @PathVariable Long userId,
             @RequestBody UpdateEventRequest updateEventRequest
-            ) {
+    ) {
         log.info("Request endpoint: 'GET /users/{}/events' (Изменение события пользователем)", userId);
         return eventService.patchEventByUserId(userId, updateEventRequest);
     }
@@ -45,7 +44,7 @@ public class EventPrivateController {
     public EventFullDto saveEvent(
             @PathVariable Long userId,
             @Validated({Create.class}) @RequestBody NewEventDto newEventDto
-            ) {
+    ) {
         log.info("Request endpoint: 'GET /users/{}/events' (Создание события пользователем)", userId);
         return eventService.saveEvent(userId, newEventDto);
     }

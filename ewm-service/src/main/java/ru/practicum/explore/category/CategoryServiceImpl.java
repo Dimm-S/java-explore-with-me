@@ -10,16 +10,14 @@ import org.springframework.web.server.ResponseStatusException;
 import ru.practicum.explore.category.dto.CategoryDto;
 import ru.practicum.explore.category.dto.NewCategoryDto;
 import ru.practicum.explore.category.model.Category;
-import ru.practicum.explore.exception.BadRequestException;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
     private final CategoryReposirory categoryReposirory;
     private final CategoryMapper categoryMapper;
 

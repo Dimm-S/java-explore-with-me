@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EventsCompilationsServiceImpl implements EventsCompilationsService{
+public class EventsCompilationsServiceImpl implements EventsCompilationsService {
     private final EventsCompilationsRepository eventsCompilationsRepository;
 
     @Override

@@ -1,6 +1,5 @@
 package ru.practicum.explore.compilations;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.practicum.explore.compilations.dto.CompilationDto;
 import ru.practicum.explore.compilations.dto.NewCompilationDto;
 

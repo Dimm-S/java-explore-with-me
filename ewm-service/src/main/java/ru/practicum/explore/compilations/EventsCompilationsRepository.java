@@ -1,9 +1,7 @@
 package ru.practicum.explore.compilations;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.practicum.explore.compilations.model.Compilation;
 import ru.practicum.explore.compilations.model.EventsCompilations;
 import ru.practicum.explore.compilations.model.EventsCompilationsId;
 

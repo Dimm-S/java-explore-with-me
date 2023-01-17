@@ -1,8 +1,5 @@
 package ru.practicum.explore.compilations.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 

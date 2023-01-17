@@ -7,8 +7,6 @@ import ru.practicum.ewmstats.dto.HitDtoInput;
 import ru.practicum.ewmstats.dto.ViewStats;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -29,8 +27,6 @@ public class HitServiceImpl implements HitService {
 
     @Override
     public List<ViewStats> getStats(String start, String end) throws UnsupportedEncodingException {
-//        start = URLEncoder.encode(start, StandardCharsets.UTF_8);
-//        end = URLEncoder.encode(end, StandardCharsets.UTF_8);
         LocalDateTime startDateTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endDateTime = LocalDateTime.parse(end, formatter);
         return hitRepository.getStats(startDateTime, endDateTime);
