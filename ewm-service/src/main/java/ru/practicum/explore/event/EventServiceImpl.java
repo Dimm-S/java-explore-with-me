@@ -330,6 +330,7 @@ public class EventServiceImpl implements EventService {
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
     }
 
     private static LocalDateTime parseLocalDateTime(CharSequence text, DateTimeFormatter formatter) {

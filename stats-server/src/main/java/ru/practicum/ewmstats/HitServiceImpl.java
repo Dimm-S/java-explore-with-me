@@ -3,11 +3,9 @@ package ru.practicum.ewmstats;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmstats.dto.HitDtoInput;
 import ru.practicum.ewmstats.dto.ViewStats;
 
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -24,6 +22,7 @@ public class HitServiceImpl implements HitService {
         Gson gson = new Gson();
         HitDtoInput hitDtoInput = gson.fromJson(string, HitDtoInput.class);
         hitRepository.save(hitMapper.mapInputToHit(hitDtoInput));
+        System.out.println("Хит записан");
     }
 
     @Override
