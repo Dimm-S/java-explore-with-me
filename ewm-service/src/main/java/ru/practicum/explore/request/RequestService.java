@@ -1,0 +1,20 @@
+package ru.practicum.explore.request;
+
+import ru.practicum.explore.request.dto.ParticipationRequestDto;
+import ru.practicum.explore.request.model.Request;
+
+import java.util.List;
+
+public interface RequestService {
+    List<Request> getRequestsByEvent(Long eventId);
+
+    Request getRequestByReqId(Long eventId, Long reqId);
+
+    void saveRequest(Request request);
+
+    List<ParticipationRequestDto> getRequestsByUserId(Long userId);
+
+    ParticipationRequestDto saveRequest(Long userId, Long eventId);
+
+    ParticipationRequestDto cancelRequest(Long userId, Long requestId);
+}
