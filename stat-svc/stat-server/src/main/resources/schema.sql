@@ -1,17 +1,17 @@
 -- we don't know how to generate root <with-no-name> (class Root) :(
-create table IF NOT EXISTS hits
+CREATE TABLE IF NOT EXISTS hits
 (
     id        serial
-        constraint pk_hits
-            primary key,
-    app       varchar(50)              not null,
-    uri       varchar(100)             not null,
-    ip        varchar(20)              not null,
-    timestamp timestamp with time zone not null
+        CONSTRAINT pk_hits
+            PRIMARY KEY,
+    app       varchar(50)              NOT NULL,
+    uri       varchar(100)             NOT NULL,
+    ip        varchar(20)              NOT NULL,
+    timestamp timestamp WITH TIME ZONE NOT NULL
 );
 
-alter table hits
-    owner to postgres;
+ALTER TABLE hits
+    OWNER TO postgres;
 
 TRUNCATE hits RESTART IDENTITY;
 

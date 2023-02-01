@@ -1,5 +1,6 @@
 package ru.practicum;
 
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,9 @@ import java.net.http.HttpResponse;
 @RequiredArgsConstructor
 public class ClientServiceImpl {
 
-    public void saveHit(String id, String ip) {
-        String body = "{\"app\":\"ewm-main-service\", \"uri\":\"/events" + id + "\", \"ip\":\"" + ip + "\"}";
+    public void saveHit(HitDtoInput hit) {
+        Gson gson = new Gson();
+        String body = gson.toJson(hit);
         HttpClient client = HttpClient.newBuilder().build();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:9090/hit"))

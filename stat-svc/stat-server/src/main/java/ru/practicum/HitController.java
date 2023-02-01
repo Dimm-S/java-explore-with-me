@@ -15,17 +15,19 @@ public class HitController {
     private final HitService hitService;
 
     @PostMapping("/hit")
-    public void saveHit(@RequestBody String string) {
+    public void saveHit(@RequestBody HitDtoInput hit) {
         log.info("Запись хита в базу");
-        System.out.println(string);
-        hitService.saveHit(string);
+        hitService.saveHit(hit);
     }
 
     @GetMapping("/stats")
     public List<ViewStats> getHits(
             @RequestParam(name = "start") String start,
-            @RequestParam(name = "end") String end) throws UnsupportedEncodingException {
+            @RequestParam(name = "end") String end,
+            @RequestParam(required = false, name = "uris") List<String> uris,
+            @RequestParam(required = false, defaultValue = "false", name = "unique") Boolean unique)
+            throws UnsupportedEncodingException {
         log.info("Запрос статистики");
-        return hitService.getStats(start, end);
+        return hitService.getStats(start, end, uris, unique);
     }
 }

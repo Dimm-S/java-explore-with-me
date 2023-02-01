@@ -4,7 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface HitService {
-    void saveHit(String string);
+    void saveHit(HitDtoInput hit);
 
-    List<ViewStats> getStats(String start, String end) throws UnsupportedEncodingException;
+    List<ViewStats> getStats(String start, String end, List<String> uris, Boolean unique)
+            throws UnsupportedEncodingException;
 }
