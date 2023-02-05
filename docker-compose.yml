@@ -13,6 +13,7 @@ services:
       - SERVER_PORT=9090
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
+      - STAT_SERVER_HOST_NAME=localhost:9090
 
   stats-db:
     image: postgres:9.5-alpine
@@ -24,7 +25,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
 
-  ewm-service:
+  main-svc:
     build: main-svc
     image: main-svc
     container_name: main-svc
@@ -32,8 +33,10 @@ services:
       - "8080:8080"
     depends_on:
       - ewm-db
+      - stat-server
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/explore
+      - STAT_SERVER_URL=http://stat-server:9090
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password

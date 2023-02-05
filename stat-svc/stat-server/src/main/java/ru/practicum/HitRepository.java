@@ -24,7 +24,8 @@ public interface HitRepository extends JpaRepository<Hit, Long> {
             "FROM Hit as h " +
             "WHERE h.timestamp >= ?1 AND h.timestamp <= ?2 " +
             "AND h.uri IN ?3 " +
-            "GROUP BY h.app, h.uri")
+            "GROUP BY h.app, h.uri " +
+            "ORDER BY count(h.uri) DESC")
     List<ViewStats> getStatsUrisList(LocalDateTime start, LocalDateTime end, List<String> uris);
 
     @Query(value = "SELECT new ru.practicum.ViewStats(h.app, h.uri, count(DISTINCT h.uri)) " +
