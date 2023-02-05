@@ -51,9 +51,9 @@ public class RequestServiceImpl implements RequestService {
     public ParticipationRequestDto saveRequest(Long userId, Long eventId) {
         Event event = eventRepository.getReferenceById(eventId);
         if (requestRepository.getRequestByUserIdAndEventId(userId, eventId) != null ||
-                event.getInitiator() == userId ||
+                event.getInitiator().equals(userId) ||
                 !event.getState().equals("PUBLISHED") ||
-                (event.getConfirmedRequests() == event.getParticipantLimit() && event.getParticipantLimit() != 0)) {
+                (event.getConfirmedRequests().equals(event.getParticipantLimit()) && event.getParticipantLimit() != 0)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Недопустимые условия запроса на участие");
         }
         Request newRequest = requestMapper.mapDtoToNewRequest(userId, eventId);

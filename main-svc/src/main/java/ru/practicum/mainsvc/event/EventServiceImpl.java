@@ -269,7 +269,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventFullDto getEventByUserIdAndEventId(Long userId, Long eventId) {
         Event event = eventRepository.getReferenceById(eventId);
-        if (event.getInitiator() != userId) {
+        if (!event.getInitiator().equals(userId)) {
             throw new BadRequestException("User " + userId + " not initiator");
         }
         return eventMapper.mapToFullDto(event);
@@ -278,7 +278,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<ParticipationRequestDto> getEventParticipationByUserId(Long userId, Long eventId) {
         Event event = eventRepository.getReferenceById(eventId);
-        if (event.getInitiator() != userId) {
+        if (!event.getInitiator().equals(userId)) {
             throw new BadRequestException("User " + userId + " not initiator");
         }
         List<Request> requests = requestService.getRequestsByEvent(eventId);
@@ -304,7 +304,7 @@ public class EventServiceImpl implements EventService {
                 requestService.saveRequest(request1);
             }
         }
-        if (event.getConfirmedRequests() == event.getParticipantLimit()) {
+        if (event.getConfirmedRequests().equals(event.getParticipantLimit())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Лимит заявок исчерпан");
         }
         for (Long id : request.getRequestIds()) {
@@ -330,7 +330,7 @@ public class EventServiceImpl implements EventService {
         if (event.getParticipantLimit() == 0) {
             throw new BadRequestException("Подтверждение не требуется");
         }
-        if (event.getParticipantLimit() != 0 && event.getConfirmedRequests() == event.getParticipantLimit()) {
+        if (event.getParticipantLimit() != 0 && event.getConfirmedRequests().equals(event.getParticipantLimit())) {
             throw new BadRequestException("Мест нет");
         }
         Request request = requestService.getRequestByReqId(eventId, reqId);
