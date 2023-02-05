@@ -144,7 +144,6 @@ public class EventServiceImpl implements EventService {
                 ip,
                 LocalDateTime.now().format(formatter)
         ));
-        System.out.println("Хит отправлен");
         return eventMapper.mapToFullDto(event, category, user);
     }
 

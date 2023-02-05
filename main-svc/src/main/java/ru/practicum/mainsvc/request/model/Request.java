@@ -19,9 +19,9 @@ public class Request {
     @Column(name = "created")
     private LocalDateTime created;
     @Column(name = "event")
-    private Long event_id;
+    private Long eventId;
     @Column(name = "requester")
-    private Long requester_id;
+    private Long requesterId;
     @Column(name = "status")
     private String status;
 }
