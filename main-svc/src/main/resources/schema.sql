@@ -85,7 +85,6 @@ create table IF NOT EXISTS events_compilations
 
 alter table events_compilations
     owner to postgres;
---
 
 create table IF NOT EXISTS comments
 (
@@ -97,8 +96,8 @@ create table IF NOT EXISTS comments
     last_change timestamp with time zone   not null
 );
 
--- alter table comments
---     owner to postgres;
+alter table comments
+    owner to postgres;
 
 -- TRUNCATE events_compilations,
 --     compilations,

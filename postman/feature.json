@@ -682,7 +682,7 @@
 							"pm.test(\"Комментарий должен быть обновлён\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.id).to.eql(1);",
-							"    pm.expect(jsonData.comment).to.eql('Обновлённый комментарий пользователя 1 к событию 1');",
+							"    pm.expect(jsonData.comment).to.eql('Обновлённый комментарий пользователя 2 к событию 1');",
 							"});"
 						],
 						"type": "text/javascript"
@@ -694,7 +694,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"comment\": \"Обновлённый комментарий пользователя 1 к событию 1\"\n}",
+					"raw": "{\n   \"comment\": \"Обновлённый комментарий пользователя 2 к событию 1\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -715,7 +715,7 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "{{createdUserId}}"
+							"value": "{{anotherUserId}}"
 						},
 						{
 							"key": "commentId",
