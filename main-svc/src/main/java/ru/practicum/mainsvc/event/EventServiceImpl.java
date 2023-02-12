@@ -13,7 +13,6 @@ import ru.practicum.HitDtoInput;
 import ru.practicum.StatClient;
 import ru.practicum.mainsvc.category.CategoryReposirory;
 import ru.practicum.mainsvc.category.model.Category;
-import ru.practicum.mainsvc.comment.CommentMapper;
 import ru.practicum.mainsvc.comment.CommentService;
 import ru.practicum.mainsvc.comment.dto.CommentDto;
 import ru.practicum.mainsvc.event.dto.*;

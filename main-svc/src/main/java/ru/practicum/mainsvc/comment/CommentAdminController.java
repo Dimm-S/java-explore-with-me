@@ -20,7 +20,7 @@ public class CommentAdminController {
             @PathVariable Long commentId,
             @Validated({Update.class}) @RequestBody NewCommentDto dto
     ) {
-        log.info("Модерация комментария {}" , commentId);
+        log.info("Модерация комментария {}", commentId);
         return commentService.moderateComment(commentId, dto);
     }
 }

@@ -1,6 +1,5 @@
 package ru.practicum.mainsvc.event;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.practicum.mainsvc.event.dto.*;
 import ru.practicum.mainsvc.event.model.Event;
 import ru.practicum.mainsvc.request.dto.ParticipationRequestDto;

@@ -7,8 +7,6 @@ import org.springframework.web.server.ResponseStatusException;
 import ru.practicum.mainsvc.comment.dto.CommentDto;
 import ru.practicum.mainsvc.comment.dto.NewCommentDto;
 import ru.practicum.mainsvc.comment.model.Comment;
-import ru.practicum.mainsvc.event.EventService;
-import ru.practicum.mainsvc.event.model.Event;
 import ru.practicum.mainsvc.request.RequestService;
 import ru.practicum.mainsvc.request.model.Request;
 
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CommentServiceImpl implements CommentService{
+public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
     private final RequestService requestService;
