@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.mainsvc.event.dto.EventFullDto;
 import ru.practicum.mainsvc.event.dto.EventShortDto;
+import ru.practicum.mainsvc.event.dto.EventWithCommentsDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -40,5 +41,11 @@ public class EventController {
         log.info("Request endpoint: 'GET /events/{} (Получение события по id)", id);
         String ip = request.getRemoteAddr();
         return eventService.getEvent(id, ip);
+    }
+
+    @GetMapping("/{id}/comments")
+    public EventWithCommentsDto getEventWithComments(@PathVariable Long id) {
+        log.info("Request endpoint: 'GET /events/{} (Получение события по id со всеми комментариями)", id);
+        return eventService.getEventWithComments(id);
     }
 }

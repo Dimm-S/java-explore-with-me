@@ -1,5 +1,6 @@
 package ru.practicum.mainsvc.event;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.practicum.mainsvc.event.dto.*;
 import ru.practicum.mainsvc.event.model.Event;
 import ru.practicum.mainsvc.request.dto.ParticipationRequestDto;
@@ -29,6 +30,8 @@ public interface EventService {
     List<EventShortDto> getEventsListByIdsList(List<Long> idList);
 
     EventFullDto getEvent(Long id, String ip);
+
+    EventWithCommentsDto getEventWithComments(Long id);
 
     Event getEvent(Long eventId);
 

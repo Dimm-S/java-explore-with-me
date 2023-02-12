@@ -13,6 +13,9 @@ import ru.practicum.HitDtoInput;
 import ru.practicum.StatClient;
 import ru.practicum.mainsvc.category.CategoryReposirory;
 import ru.practicum.mainsvc.category.model.Category;
+import ru.practicum.mainsvc.comment.CommentMapper;
+import ru.practicum.mainsvc.comment.CommentService;
+import ru.practicum.mainsvc.comment.dto.CommentDto;
 import ru.practicum.mainsvc.event.dto.*;
 import ru.practicum.mainsvc.event.model.Event;
 import ru.practicum.mainsvc.exception.BadRequestException;
@@ -47,6 +50,7 @@ public class EventServiceImpl implements EventService {
     private final EventMapper eventMapper;
     private final RequestService requestService;
     private final RequestMapper requestMapper;
+    private final CommentService commentService;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSS]");
     private final StatClient client;
 
@@ -145,6 +149,13 @@ public class EventServiceImpl implements EventService {
                 LocalDateTime.now().format(formatter)
         ));
         return eventMapper.mapToFullDto(event, category, user);
+    }
+
+    @Override
+    public EventWithCommentsDto getEventWithComments(Long id) {
+        Event event = eventRepository.getReferenceById(id);
+        List<CommentDto> comments = commentService.getCommentsByEventId(id);
+        return eventMapper.mapToEventWithComments(event, comments);
     }
 
     @Override
