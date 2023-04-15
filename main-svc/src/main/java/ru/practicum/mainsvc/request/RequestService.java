@@ -14,6 +14,8 @@ public interface RequestService {
 
     Request getRequest(Long id);
 
+    Request getRequestByEventIdAndRequesterId(Long eventId, Long requesterId);
+
     List<ParticipationRequestDto> getRequestsByUserId(Long userId);
 
     ParticipationRequestDto saveRequest(Long userId, Long eventId);

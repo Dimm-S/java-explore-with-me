@@ -30,6 +30,8 @@ public interface EventService {
 
     EventFullDto getEvent(Long id, String ip);
 
+    EventWithCommentsDto getEventWithComments(Long id);
+
     Event getEvent(Long eventId);
 
     List<EventShortDto> getEventsByUserId(Long userId, Integer from, Integer size);

@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.mainsvc.category.CategoryService;
 import ru.practicum.mainsvc.category.model.Category;
+import ru.practicum.mainsvc.comment.dto.CommentDto;
 import ru.practicum.mainsvc.event.dto.EventFullDto;
 import ru.practicum.mainsvc.event.dto.EventShortDto;
+import ru.practicum.mainsvc.event.dto.EventWithCommentsDto;
 import ru.practicum.mainsvc.event.dto.NewEventDto;
 import ru.practicum.mainsvc.event.model.Event;
 import ru.practicum.mainsvc.user.UserService;
@@ -13,6 +15,7 @@ import ru.practicum.mainsvc.user.model.User;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -106,6 +109,13 @@ public class EventMapper {
                 "PENDING",
                 newEventDto.getTitle(),
                 0L
+        );
+    }
+
+    public EventWithCommentsDto mapToEventWithComments(Event event, List<CommentDto> comments) {
+        return new EventWithCommentsDto(
+                mapToShortDto(event),
+                comments
         );
     }
 

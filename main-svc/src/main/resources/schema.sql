@@ -86,8 +86,21 @@ create table IF NOT EXISTS events_compilations
 alter table events_compilations
     owner to postgres;
 
-TRUNCATE events_compilations,
-    compilations,
-    requests,
-    events, users, category RESTART IDENTITY;
+create table IF NOT EXISTS comments
+(
+    id          serial        NOT NULL     CONSTRAINT pk_comments PRIMARY KEY,
+    user_id     integer       NOT NULL     CONSTRAINT user_comment_fk REFERENCES users,
+    event_id    integer       NOT NULL     CONSTRAINT event_comment_fk REFERENCES events,
+    comment     varchar(5000) NOT NULL,
+    created  timestamp with time zone   not null,
+    last_change timestamp with time zone   not null
+);
+
+alter table comments
+    owner to postgres;
+
+-- TRUNCATE events_compilations,
+--     compilations,
+--     requests,
+--     events, users, category RESTART IDENTITY;
 

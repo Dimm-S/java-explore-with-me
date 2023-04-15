@@ -40,6 +40,11 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public Request getRequestByEventIdAndRequesterId(Long eventId, Long requesterId) {
+        return requestRepository.getRequestByUserIdAndEventId(requesterId, eventId);
+    }
+
+    @Override
     public List<ParticipationRequestDto> getRequestsByUserId(Long userId) {
         List<Request> requests = requestRepository.getRequestsByUserId(userId);
         return requests.stream()
