@@ -2,6 +2,7 @@ package ru.practicum;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -15,6 +16,7 @@ public class HitController {
     private final HitService hitService;
 
     @PostMapping("/hit")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public void saveHit(@RequestBody HitDtoInput hit) {
         log.info("Запись хита в базу");
         hitService.saveHit(hit);

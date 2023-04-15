@@ -14,7 +14,7 @@ import java.util.List;
 public class HitServiceImpl implements HitService {
     private final HitRepository hitRepository;
     private final HitMapper hitMapper;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSS]");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSS][SSS]");
 
     @Override
     public void saveHit(HitDtoInput hit) {

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 @RequiredArgsConstructor
 public class HitMapper {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSS]");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSS][SSS]");
 
 
     public Hit mapInputToHit(HitDtoInput input) {
